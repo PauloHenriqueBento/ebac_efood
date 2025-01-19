@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import logo from '../../assets/icons/logo.svg'
 import { HeaderContainer, HeaderTitle } from './styles'
 
@@ -14,7 +14,7 @@ const Header = () => {
     <HeaderContainer isHome={isHome}>
       <div className="container">
         <nav>
-          {!isHome && <p>Restaurantes</p>}
+          {!isHome && <Link to="/">Restaurantes</Link>}
           <img src={logo} alt="E-food" />
           {!isHome && <p>0 produto(s) no carrinho</p>}
         </nav>

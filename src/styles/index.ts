@@ -10,6 +10,11 @@ export const GlobalCss = createGlobalStyle`
     font-family: Roboto, sans-serif;
   }
 
+  a {
+    text-decoration: none;
+    color: ${colors.textColorPrimary}
+  }
+
   body {
     background-color: ${colors.backgroundColorLight};
     color: ${colors.textColorPrimary};
