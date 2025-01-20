@@ -9,6 +9,7 @@ export const Card = styled.div`
   > img {
     max-height: 217px;
     width: 100%;
+    object-fit: cover;
   }
 `
 export const TagsContainer = styled.div`

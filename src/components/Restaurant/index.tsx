@@ -8,30 +8,32 @@ import {
 } from './styles'
 
 type Props = {
+  id: number
   title: string
   category: string
   image: string
   description: string
   note: number
-  tag?: string
+  tag?: boolean
 }
 
 import star from '../../assets/icons/star_favorite.svg'
 import Button from '../Button'
 
 const Restaurants = ({
+  id,
   title,
   category,
   image,
   description,
   note,
-  tag
+  tag = false
 }: Props) => {
   return (
     <Card>
       <img src={image} alt={title} />
       <TagsContainer>
-        {tag && <Tag>{tag}</Tag>}
+        {tag && <Tag>Destaque da semana</Tag>}
         <Tag>{category}</Tag>
       </TagsContainer>
       <CardContent>
@@ -45,7 +47,7 @@ const Restaurants = ({
         <Description>{description}</Description>
         <Button
           type="link"
-          to={{ pathname: '/restaurant', state: { title, category, image } }}
+          to={`/restaurant/${id}`}
           title="Saiba mais"
           color="primary"
         >
