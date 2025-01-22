@@ -1,22 +1,19 @@
-import { useEffect, useState } from 'react'
 import RestaurantList from '../../components/RestaurantList'
-import { Restaurant } from '../../types/restaurant'
-import { baseURL } from '../../utils/baseUrl'
+
+import { useGetRestaurantsQuery } from '../../services/api'
 
 const Home = () => {
-  const [restaurants, setRestaurants] = useState<Restaurant[]>([])
+  const { data: restaurants } = useGetRestaurantsQuery()
 
-  useEffect(() => {
-    fetch(`${baseURL}/restaurantes`)
-      .then((res) => res.json())
-      .then((res) => setRestaurants(res))
-  }, [])
+  if (restaurants) {
+    return (
+      <>
+        <RestaurantList restaurants={restaurants} />
+      </>
+    )
+  }
 
-  return (
-    <>
-      <RestaurantList restaurants={restaurants} />
-    </>
-  )
+  return <h4>Carregando...</h4>
 }
 
 export default Home

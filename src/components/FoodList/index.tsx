@@ -12,6 +12,8 @@ import close from '../../assets/icons/close.png'
 import { useState } from 'react'
 import Button from '../Button'
 import { formatToBRLCurrency } from '../../utils/formatToBRLCurrency'
+import { useDispatch } from 'react-redux'
+import { add, open } from '../../store/reducers/cart'
 
 type Props = {
   foods: MenuItem[]
@@ -22,6 +24,14 @@ interface ModalState extends MenuItem {
 }
 
 export const FoodList = ({ foods }: Props) => {
+  const dispatch = useDispatch()
+
+  const addToCart = (food: MenuItem) => {
+    dispatch(add(food))
+    dispatch(open())
+    closeModal()
+  }
+
   const [modal, setModal] = useState<ModalState>({
     descricao: '',
     foto: '',
@@ -100,6 +110,7 @@ export const FoodList = ({ foods }: Props) => {
                 title="Adicione ao carrinho"
                 color="secundary"
                 type="button"
+                onClick={() => addToCart(modal)}
               >
                 Adicionar ao carrinho - {formatToBRLCurrency(modal.preco)}
               </Button>

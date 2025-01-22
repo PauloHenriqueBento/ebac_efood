@@ -1,20 +1,12 @@
 import { useParams } from 'react-router-dom'
 import { FoodList } from '../../components/FoodList'
 import RestaurantBanner from '../../components/RestaurantBanner'
-import { Restaurant as RestaurantType } from '../../types/restaurant'
-import { useEffect, useState } from 'react'
-import { baseURL } from '../../utils/baseUrl'
+import { useGetRestaurantByIdQuery } from '../../services/api'
 
 const Restaurant = () => {
   const { id } = useParams()
 
-  const [restaurant, setRestaurant] = useState<RestaurantType>()
-
-  useEffect(() => {
-    fetch(`${baseURL}/restaurantes/${id}`)
-      .then((res) => res.json())
-      .then((res) => setRestaurant(res))
-  }, [id])
+  const { data: restaurant } = useGetRestaurantByIdQuery(id!)
 
   if (!restaurant) {
     return <h3>Carregando</h3>

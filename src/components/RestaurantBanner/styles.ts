@@ -29,7 +29,7 @@ export const Container = styled.div<Props>`
 
   > * {
     position: relative;
-    z-index: 2;
+    z-index: 1;
   }
 
   > .container {
