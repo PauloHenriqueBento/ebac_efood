@@ -1,64 +1,33 @@
-import Food from '../../models/Foods'
-
-import food from '../../assets/food3.png'
-import banner from '../../assets/food2.png'
+import { useParams } from 'react-router-dom'
 import { FoodList } from '../../components/FoodList'
 import RestaurantBanner from '../../components/RestaurantBanner'
-
-const foods: Food[] = [
-  {
-    id: 1,
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: food,
-    title: 'Pizza Marguerita'
-  },
-  {
-    id: 2,
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: food,
-    title: 'Pizza Marguerita'
-  },
-  {
-    id: 3,
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: food,
-    title: 'Pizza Marguerita'
-  },
-  {
-    id: 4,
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: food,
-    title: 'Pizza Marguerita'
-  },
-  {
-    id: 5,
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: food,
-    title: 'Pizza Marguerita'
-  },
-  {
-    id: 6,
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    image: food,
-    title: 'Pizza Marguerita'
-  }
-]
+import { Restaurant as RestaurantType } from '../../types/restaurant'
+import { useEffect, useState } from 'react'
+import { baseURL } from '../../utils/baseUrl'
 
 const Restaurant = () => {
+  const { id } = useParams()
+
+  const [restaurant, setRestaurant] = useState<RestaurantType>()
+
+  useEffect(() => {
+    fetch(`${baseURL}/restaurantes/${id}`)
+      .then((res) => res.json())
+      .then((res) => setRestaurant(res))
+  }, [id])
+
+  if (!restaurant) {
+    return <h3>Carregando</h3>
+  }
+
   return (
     <>
       <RestaurantBanner
-        category="Italiana"
-        title="La Dolce Vita Trattoria"
-        image={banner}
+        category={restaurant.tipo}
+        title={restaurant.titulo}
+        image={restaurant.capa}
       />
-      <FoodList foods={foods} />
+      <FoodList foods={restaurant.cardapio} />
     </>
   )
 }

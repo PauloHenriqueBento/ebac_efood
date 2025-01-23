@@ -9,6 +9,7 @@ export const Card = styled.div`
   > img {
     max-height: 217px;
     width: 100%;
+    object-fit: cover;
   }
 `
 export const TagsContainer = styled.div`
@@ -28,6 +29,8 @@ export const Tag = styled.span`
 
 export const CardContent = styled.div`
   padding: 8px;
+  border: 1px solid ${colors.backgroundColorDark};
+  margin-top: -5px;
 `
 
 export const InfoContainer = styled.div`

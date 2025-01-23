@@ -1,26 +1,118 @@
-import Food from '../../models/Foods'
+import { MenuItem } from '../../types/restaurant'
 import Foods from '../Food'
-import { Container, List } from './styles'
+import {
+  Container,
+  List,
+  Modal,
+  ModalContent,
+  ModalInfoContainer
+} from './styles'
+
+import close from '../../assets/icons/close.png'
+import { useState } from 'react'
+import Button from '../Button'
+import { formatToBRLCurrency } from '../../utils/formatToBRLCurrency'
 
 type Props = {
-  foods: Food[]
+  foods: MenuItem[]
+}
+
+interface ModalState extends MenuItem {
+  isVisible: boolean
 }
 
 export const FoodList = ({ foods }: Props) => {
+  const [modal, setModal] = useState<ModalState>({
+    descricao: '',
+    foto: '',
+    nome: '',
+    porcao: '',
+    preco: 0,
+    id: 0,
+    isVisible: false
+  })
+
+  const closeModal = () => {
+    setModal({
+      descricao: '',
+      foto: '',
+      nome: '',
+      porcao: '',
+      preco: 0,
+      id: 0,
+      isVisible: false
+    })
+  }
+
+  const openModal = (item: MenuItem) => {
+    setModal({
+      descricao: item.descricao,
+      foto: item.foto,
+      nome: item.nome,
+      porcao: item.porcao,
+      preco: item.preco,
+      id: item.id,
+      isVisible: true
+    })
+  }
+
   return (
-    <Container>
-      <div className="container">
-        <List>
-          {foods.map((food) => (
-            <Foods
-              key={food.id}
-              description={food.description}
-              image={food.image}
-              title={food.title}
-            ></Foods>
-          ))}
-        </List>
-      </div>
-    </Container>
+    <>
+      <Container>
+        <div className="container">
+          <List>
+            {foods.map((food) => (
+              <Foods
+                key={food.id}
+                description={food.descricao}
+                image={food.foto}
+                title={food.nome}
+                onAddToCart={() => openModal(food)}
+              />
+            ))}
+          </List>
+        </div>
+      </Container>
+      <Modal className={modal.isVisible ? 'visible' : ''}>
+        <ModalContent className="container">
+          <header>
+            <img
+              src={close}
+              alt="Fechar"
+              onClick={() => {
+                closeModal()
+              }}
+            />
+          </header>
+          <ModalInfoContainer>
+            <img
+              src={modal.foto}
+              alt={modal.nome}
+              onClick={() => {
+                closeModal()
+              }}
+            />
+            <div>
+              <h3>{modal.nome}</h3>
+              <p>{modal.descricao}</p>
+              <p>{modal.porcao}</p>
+              <Button
+                title="Adicione ao carrinho"
+                color="secundary"
+                type="button"
+              >
+                Adicionar ao carrinho - {formatToBRLCurrency(modal.preco)}
+              </Button>
+            </div>
+          </ModalInfoContainer>
+        </ModalContent>
+        <div
+          onClick={() => {
+            closeModal()
+          }}
+          className="overlay"
+        />
+      </Modal>
+    </>
   )
 }
