@@ -19,7 +19,7 @@ export const Modal = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 2;
+  z-index: 1;
   display: none;
   align-items: center;
   justify-content: center;
@@ -40,7 +40,7 @@ export const Modal = styled.div`
 export const ModalContent = styled.div`
   max-width: 960px;
   position: relative;
-  z-index: 2;
+  z-index: 1;
   background-color: ${colors.backgroundColorDark};
   color: ${colors.textColorSecundary};
   padding: 32px;

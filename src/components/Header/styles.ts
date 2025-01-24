@@ -10,6 +10,10 @@ export const HeaderContainer = styled.header<Props>`
     display: flex;
     align-items: center;
     justify-content: ${({ isHome }) => (isHome ? 'center' : 'space-between')};
+
+    p {
+      cursor: pointer;
+    }
   }
 `
 
