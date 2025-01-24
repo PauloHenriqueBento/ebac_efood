@@ -2,14 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { close, remove } from '../../store/reducers/cart'
 import { RootReducer } from '../../store'
 import Button from '../Button'
-import {
-  CartContainer,
-  CartItem,
-  Overlay,
-  Price,
-  Quantity,
-  Sidebar
-} from './styles'
+import { CartContainer, CartItem, Overlay, Price, Sidebar } from './styles'
 import { formatToBRLCurrency } from '../../utils/formatToBRLCurrency'
 
 const Cart = () => {
