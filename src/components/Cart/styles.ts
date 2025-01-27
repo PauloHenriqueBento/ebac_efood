@@ -33,6 +33,13 @@ export const Sidebar = styled.aside`
   max-width: 360px;
   width: 100%;
   background-color: ${colors.backgroundColorDark};
+
+  .empty-text {
+    font-size: 14px;
+    line-height: 22px;
+    color: ${colors.textColorSecundary};
+    text-align: center;
+  }
 `
 
 export const Price = styled.p`
