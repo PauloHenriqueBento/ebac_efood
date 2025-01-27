@@ -2,13 +2,14 @@ import { Link, Location, To } from 'react-router-dom'
 import { ButtonContainer } from './styles'
 
 export type Props = {
-  type: 'button' | 'link'
+  type: 'button' | 'link' | 'submit'
   title: string
   to?: To | Location
   onClick?: () => void
   children: React.ReactNode
   large?: boolean
   color?: 'primary' | 'secundary'
+  disabled?: boolean
 }
 
 const Button = ({
@@ -18,7 +19,8 @@ const Button = ({
   onClick,
   children,
   color = 'primary',
-  large = false
+  large = false,
+  disabled
 }: Props) => {
   if (type === 'link') {
     return (
@@ -36,12 +38,13 @@ const Button = ({
 
   return (
     <ButtonContainer
-      as="button"
+      as={type}
       type="button"
       title={title}
       onClick={onClick}
       color={color}
       large={large}
+      disabled={disabled}
     >
       {children}
     </ButtonContainer>
