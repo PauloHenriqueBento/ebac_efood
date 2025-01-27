@@ -47,7 +47,7 @@ const Checkout = () => {
     cep: Yup.string().required('O CEP é obrigatório'),
     number: Yup.string().required('O número é obrigatório'),
     complement: Yup.string(),
-    cardOwner: Yup.string().when([], (values, schema) =>
+    cardOwner: Yup.string().when([], (_, schema) =>
       schema.required('O nome do titular é obrigatório')
     ),
     cardnumber: Yup.string().required('O número do cartão é obrigatório'),
